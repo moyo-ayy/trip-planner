@@ -37,4 +37,3 @@ function Nav() {
 }
 
 export default Nav;
->>>>>>> 584736503a783753a6fece052adfe538c377d99e
