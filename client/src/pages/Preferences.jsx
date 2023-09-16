@@ -1,7 +1,14 @@
 import React from "react";
+import Nav from "../components/nav/Nav";
+import Form from "../components/form/Form";
 
 function Preferences() {
-  return <div>Preferences</div>;
+  return (
+    <>
+      <Nav />
+      <Form />
+    </>
+  );
 }
 
 export default Preferences;
