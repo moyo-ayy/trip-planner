@@ -4,6 +4,7 @@ import Login from "./pages/Login";
 import Preferences from "./pages/Preferences";
 import Result from "./pages/Result";
 import env from "react-dotenv"
+import Signup from "./pages/Signup";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route exact path="/login" Component={Login} />
         <Route exact path="/Preferences" Component={Preferences} />
         <Route exact path="/result" Component={Result} />
+        <Route exact path="/signup" Component={Signup} />
       </Routes>
     </BrowserRouter>
   );
