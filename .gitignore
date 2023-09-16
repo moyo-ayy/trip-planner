@@ -25,4 +25,3 @@ yarn-debug.log*
 yarn-error.log*
 node_modules
 server/config/config.env
-server/server.js
