@@ -1,8 +1,12 @@
 import React from "react";
-// import Stack from '@mui/material/Stack';
-// import Button from '@mui/material/Button';
+import Nav from "../components/nav/Nav";
+
 function Homepage() {
-  return <div>Homepage</div>;
+  return (
+    <>
+      <Nav />
+    </>
+  )
 }
 
 export default Homepage;
