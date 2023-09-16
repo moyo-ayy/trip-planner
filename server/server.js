@@ -18,7 +18,7 @@ const openai = new OpenAI({
 app.use(cors());
 
 
-app.get('/api/:city1/:city2', (req, res) => {
+app.get('/api/:city1/:city2/:count', (req, res) => {
     // res.json({ message: "Hello from the backend!" });
 
     const getResponse = async () => {
@@ -31,7 +31,7 @@ app.get('/api/:city1/:city2', (req, res) => {
                 },
                 {
                   "role": "user",
-                  "content": `List 6 evenly spaced cities between ${req.params.city1} and ${req.params.city2} in the format "city1,city2,city3".`
+                  "content": `List ${req.params.count} evenly spaced cities between ${req.params.city1} and ${req.params.city2} in the format "city1,city2,city3".`
                 }
               ]
             });
