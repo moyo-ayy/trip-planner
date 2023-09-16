@@ -7,8 +7,12 @@
   }
   
   .mapContainer {
-    height: 85vh;
-    width: 100%;
+    height: calc(100vh - 60px);
+    width: 50vw;
+    float:right;
+    padding: 30px;
+    /* position: absolute;
+    bottom: 0; */
   }
   
   .markerContainer {
