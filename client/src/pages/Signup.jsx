@@ -1,15 +1,3 @@
-// import React from 'react'
-
-// function Signup() {
-//   return (
-//     <div>Signup</div>
-//   )
-// }
-
-// export default Signup
-
-
-
 import * as React from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
