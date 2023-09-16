@@ -1,0 +1,97 @@
+@import url('https://fonts.googleapis.com/css2?family=Herr+Von+Muellerhoff&family=Playfair+Display&family=Poppins:wght@400;500;600;700&display=swap');
+/* 
+font-family: 'Herr Von Muellerhoff', cursive;
+font-family: 'Playfair Display', serif;
+font-family: 'Poppins', sans-serif; */
+
+a {
+    text-decoration: none;
+    color: #281e41;
+}
+
+a:visited {
+    text-decoration: none;
+    color: inherit; 
+}
+
+.navbar-nav a:hover {
+    color: #9f92b2; /* or you can add other hover effects if you prefer */
+}
+
+header {
+    font-family: 'Poppins', sans-serif;
+    color: #281e41;
+}
+
+
+/* Basic styling */
+.navbar {
+    background-color: #f8f9fa;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    padding-bottom: 0.5rem;
+    padding-top: 0.5rem;
+}
+
+.container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.navbar-brand {
+    font-size: 1.8rem;
+    font-weight: 500;
+    margin-right: auto;
+    font-family: "Playfair Display", serif;
+}
+
+.navbar-nav {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+}
+
+.navbar-nav li:not(:last-child) {
+    margin-right: 40px;
+}
+
+.nav-item {
+    margin: 0;
+    padding: 0 15px;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: #333;
+    padding: 10px 15px;
+    display: block;
+}
+
+.nav-link:hover {
+    background-color: #ffd700; /* yellow hover effect */
+}
+
+.navbar-toggler {
+    border: none;
+    background: none;
+    display: none; /* initially hidden */
+}
+
+
+/* Mobile view with the toggler button */
+@media (max-width: 768px) {
+    .navbar-nav {
+        display: none; /* initially hidden */
+        flex-direction: column;
+    }
+    .navbar-toggler {
+        display: block;
+    }
+}
