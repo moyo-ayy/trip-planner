@@ -25,7 +25,7 @@ function Nav() {
                         <a href="/login">LOG IN</a>
                       </li>
                       <li>
-                        <a href="/">SIGN UP</a>
+                        <a href="/signup">SIGN UP</a>
                       </li>
                       
 
