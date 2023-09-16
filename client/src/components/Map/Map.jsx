@@ -2,8 +2,7 @@ import React from 'react';
 import GoogleMapReact from 'google-map-react';
 import { Paper, Typography, useMediaQuery } from '@mui/material';
 import Rating from '@mui/material/Rating';
-import env from "react-dotenv"
-import './styles.css';
+import './map.css';
 
 const MapComponent = ({ center, zoom, value }) => {
     
@@ -16,7 +15,7 @@ const MapComponent = ({ center, zoom, value }) => {
     return (
       <div className="mapContainer">
         <GoogleMapReact
-          bootstrapURLKeys={{ key: process.env.REACT_APP_GOOGLE_API_KEY }}
+          bootstrapURLKeys={{ key: process.env.REACT_APP_API_KEY}}
           defaultCenter={center}
           defaultZoom={zoom}
           onGoogleApiLoaded={({ map, maps }) => renderMarkers(map, maps)}
@@ -38,8 +37,8 @@ const MapComponent = ({ center, zoom, value }) => {
   
   MapComponent.defaultProps = {
     center: {
-      lat: 59.95,
-      lng: 30.33,
+      lat: 80.95,
+      lng: 100.33,
     },
     zoom: 11,
   };
