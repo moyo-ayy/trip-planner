@@ -6,6 +6,7 @@ const dotenv = require('dotenv')
 const app = express();
 const PORT = 4000;
 
+// added a config folder for the .env config file; this may conflict on your local machine
 dotenv.config({path: './config.env'})
 
 const { OpenAI } = require('openai');
@@ -16,6 +17,7 @@ const openai = new OpenAI({
 
 app.use(cors());
 
+
 app.get('/api/:city1/:city2', (req, res) => {
     // res.json({ message: "Hello from the backend!" });
 
@@ -23,14 +25,15 @@ app.get('/api/:city1/:city2', (req, res) => {
         const chatCompletion = await openai.chat.completions.create({
             "model": "gpt-4",
             "messages": [
-            {    "role": "system",
-                "content": "I only want cities, I do not want descriptions, I want a brief and short response not including the start and end cities, do not end output in newline"
-            },
-            {
-            "role": "user",
-            "content": `Give me 6 cities in the form of 'city1,city2,city3' between a ${req.params.city1} to ${req.params.city2} roadtrip`
-            }
-            ]
+                {
+                  "role": "system",
+                  "content": "Provide a list of cities without descriptions. Exclude the starting and ending cities. The response should be concise and not end with a newline."
+                },
+                {
+                  "role": "user",
+                  "content": `List 6 evenly spaced cities between ${req.params.city1} and ${req.params.city2} in the format "city1,city2,city3".`
+                }
+              ]
             });
         res.json(chatCompletion.choices[0].message.content);
     }
