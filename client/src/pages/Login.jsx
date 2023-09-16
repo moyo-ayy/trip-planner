@@ -13,6 +13,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Nav from '../components/nav/Nav.jsx'
+import { useAuth0 } from '@auth0/auth0-react'
 
 
 function Copyright(props) {
@@ -33,6 +34,9 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 export default function SignIn() {
+
+  const { loginWithRedirect } = useAuth0();
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -93,6 +97,19 @@ export default function SignIn() {
               sx={{ mt: 3, mb: 2 }}
             >
               Sign In
+            </Button>
+            <Typography variant="subtitle1" align="center" sx={{ my: 2 }}>
+                or
+            </Typography>
+            {/* Auth0 Login Button */}
+            <Button
+              fullWidth
+              variant="contained"
+              color="primary"
+              sx={{ mt: 2 }}
+              onClick={() => loginWithRedirect()}
+            >
+              Sign In with Auth0
             </Button>
             <Grid container>
               <Grid item xs>

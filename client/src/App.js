@@ -4,7 +4,7 @@ import Login from "./pages/Login";
 import Preferences from "./pages/Preferences";
 import Result from "./pages/Result";
 import Signup from "./pages/Signup";
-import env from "react-dotenv"
+
 
 function App() {
   return (
