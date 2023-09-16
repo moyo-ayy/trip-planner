@@ -2,8 +2,7 @@ import React from 'react';
 import GoogleMapReact from 'google-map-react';
 import { Paper, Typography, useMediaQuery } from '@mui/material';
 import Rating from '@mui/material/Rating';
-import env from "react-dotenv"
-import './styles.css';
+import './map.css';
 
 const MapComponent = ({ center, zoom, value }) => {
     
@@ -38,8 +37,8 @@ const MapComponent = ({ center, zoom, value }) => {
   
   MapComponent.defaultProps = {
     center: {
-      lat: 59.95,
-      lng: 30.33,
+      lat: 25.907,
+      lng: -80.138,
     },
     zoom: 11,
   };
