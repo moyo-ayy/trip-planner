@@ -23,3 +23,15 @@ code {
   align-items: center;
   justify-content: space-between;
 }
+
+.flex-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.flex-container > * {
+  /* this will apply to all direct children of .flex-container */
+  flex: 1; /* makes each child grow equally */
+  width: 50%; /* set each child's width to 50% */
+  margin: 20px 20px;
+}

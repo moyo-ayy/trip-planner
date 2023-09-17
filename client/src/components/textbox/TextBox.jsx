@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import LocationContext from "../../contexts/LocationContext";
+import "./textBox.css"
 
 function Textbox() {
   const { locationData } = useContext(LocationContext);
@@ -9,7 +10,7 @@ function Textbox() {
 
   return (
     <div className="container-textbox">
-      <p>{tripPlan}</p>
+      <p className="preserve-format">{tripPlan}</p>
     </div>
   );
 }
