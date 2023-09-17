@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigation } from 'react-router-dom';
-import ReactDOM from 'react-dom'; // Corrected this import
+import ReactDOM from 'react-dom/client'; // Corrected this import
 import './index.css';
 import App from './App';
 import { Auth0Provider } from '@auth0/auth0-react';

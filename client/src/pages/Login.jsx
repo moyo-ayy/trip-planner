@@ -12,8 +12,9 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { useAuth0 } from '@auth0/auth0-react';
+import { useNavigate } from 'react-router-dom';
 import Nav from '../components/nav/Nav.jsx'
-import { useAuth0 } from '@auth0/auth0-react'
 
 
 function Copyright(props) {
@@ -29,14 +30,19 @@ function Copyright(props) {
   );
 }
 
-// TODO remove, this demo shouldn't need to reset the theme.
-
 const defaultTheme = createTheme();
 
 export default function SignIn() {
+  const { loginWithRedirect, isAuthenticated } = useAuth0();
+  const navigate = useNavigate();
+  const userEmail = sessionStorage.getItem('userEmail');
 
-  const { loginWithRedirect } = useAuth0();
-
+  React.useEffect(() => {
+    if (isAuthenticated || userEmail) {
+        navigate('/preferences');
+    }
+}, [isAuthenticated, navigate, userEmail]);
+  
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -44,7 +50,11 @@ export default function SignIn() {
       email: data.get('email'),
       password: data.get('password'),
     });
-  };
+    
+    // Store email in sessionStorage
+    sessionStorage.setItem('userEmail', data.get('email'));
+    navigate('/preferences');
+};
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -98,15 +108,10 @@ export default function SignIn() {
             >
               Sign In
             </Button>
-            <Typography variant="subtitle1" align="center" sx={{ my: 2 }}>
-                or
-            </Typography>
-            {/* Auth0 Login Button */}
             <Button
               fullWidth
-              variant="contained"
-              color="primary"
-              sx={{ mt: 2 }}
+              variant="outlined"
+              sx={{ mt: 2, mb: 2 }}
               onClick={() => loginWithRedirect()}
             >
               Sign In with Auth0

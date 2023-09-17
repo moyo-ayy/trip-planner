@@ -12,6 +12,8 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { useNavigate } from 'react-router-dom';
+import { useAuth0 } from '@auth0/auth0-react';
 import Nav from '../components/nav/Nav.jsx'
 function Copyright(props) {
   return (
@@ -31,6 +33,16 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 export default function Signup() {
+  const { isAuthenticated } = useAuth0();
+  const navigate = useNavigate();
+  const userEmail = sessionStorage.getItem('userEmail');
+
+  React.useEffect(() => {
+    if (isAuthenticated || userEmail) {
+        navigate('/preferences');
+    }
+}, [isAuthenticated, navigate, userEmail]);
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -38,7 +50,12 @@ export default function Signup() {
       email: data.get('email'),
       password: data.get('password'),
     });
-  };
+    
+    // Store email in sessionStorage
+    sessionStorage.setItem('userEmail', data.get('email'));
+    navigate('/preferences');
+};
+
 
   return (
     <ThemeProvider theme={defaultTheme}>
