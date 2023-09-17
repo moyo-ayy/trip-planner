@@ -5,6 +5,7 @@ const LocationProvider = ({ children }) => {
   const [locationData, setLocationData] = useState({
     formData: null,
     serverResponse: null,
+    tripPlan: null,
   });
 
   useEffect(() => {

@@ -4,21 +4,16 @@ import { GoogleMap, Marker, useJsApiLoader } from '@react-google-maps/api';
 import LocationContext from "../../contexts/LocationContext";  // Ensure the correct path
 import axios from 'axios';
 
-const center = {
-  lat: 26.1420358,
-  lng: -81.7948103
-};
-
 function MapComponent() {
 
   const { locationData } = useContext(LocationContext);  // Extracting the context data
   console.log(locationData);
 
-  // Parse the serverResponse from context to extract lat-long coordinates
+  // Improved parsing logic to handle spaces
   const coordinates = locationData.serverResponse
-    .split("),(")
+    .split("), (")  // Handle spaces after commas
     .map(coordStr => {
-      const [lat, lng] = coordStr.replace(/[()]/g, "").split(",");
+      const [lat, lng] = coordStr.replace(/[()]/g, "").split(", ");
       console.log(lat, lng);
       return { lat: parseFloat(lat.trim()), lng: parseFloat(lng.trim()) };
     });
@@ -31,10 +26,14 @@ function MapComponent() {
   const [map, setMap] = React.useState(null);
 
   const onLoad = useCallback(function callback(map) {
-    const bounds = new window.google.maps.LatLngBounds(center);
+    // Create bounds object
+    const bounds = new window.google.maps.LatLngBounds();
+    // Extend bounds for each marker
+    coordinates.forEach(coord => bounds.extend(coord));
+    // Adjust map view to fit all markers
     map.fitBounds(bounds);
     setMap(map);
-  }, []);
+  }, [coordinates]);
 
   const onUnmount = useCallback(function callback(map) {
     setMap(null);
@@ -44,7 +43,6 @@ function MapComponent() {
     <GoogleMap
       zoom={10}
       mapContainerClassName={"mapContainer"}
-      center={center}
       onLoad={onLoad}
       onUnmount={onUnmount}
     >
