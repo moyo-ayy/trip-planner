@@ -25,15 +25,15 @@ app.get('/api/:city1/:city2/:count', (req, res) => {
         const chatCompletion = await openai.chat.completions.create({
             "model": "gpt-4",
             "messages": [
-                {
-                  "role": "system",
-                  "content": "Provide a list of cities without descriptions. Exclude the starting and ending cities. The response should be concise and not end with a newline."
-                },
-                {
-                  "role": "user",
-                  "content": `List ${req.params.count} evenly spaced cities between ${req.params.city1} and ${req.params.city2} in the format "city1,city2,city3".`
-                }
-              ]
+              {
+                "role": "system",
+                "content": "Please list the latitude and longitude coordinates of all cities located between the specified starting and ending locations, excluding the starting and ending cities themselves. Your response should be succinct and well-organized."
+              },
+              {
+                "role": "user",
+                "content": `List ${req.params.count} evenly spaced cities between ${req.params.city1} and ${req.params.city2} and provide their latitude and longitude in the format "city1 (lat1, lon1), city2 (lat2, lon2), city3 (lat3, lon3)".`
+              }
+            ]
             });
         res.json(chatCompletion.choices[0].message.content);
     }

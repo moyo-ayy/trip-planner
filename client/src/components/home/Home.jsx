@@ -13,7 +13,7 @@ function Home() {
             Transform your road trips with AI magic. Crafted routes. Curated
             experiences. Crystal-clear adventures.
           </p>
-          <a href="/login" className="btn">
+          <a href="/preferences" className="btn">
             Start the magic!
           </a>
         </div>
