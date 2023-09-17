@@ -37,8 +37,8 @@ const MapComponent = ({ center, zoom, value }) => {
   
   MapComponent.defaultProps = {
     center: {
-      lat: 80.95,
-      lng: 100.33,
+      lat: 25.907,
+      lng: -80.138,
     },
     zoom: 11,
   };
