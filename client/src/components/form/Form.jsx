@@ -2,8 +2,12 @@ import React, { useState } from "react";
 import { TextField, Button, Box, Typography } from "@mui/material";
 import "./form.css";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import Map from "../Map/Map";
 
-function Form() {
+function Form(props) {
+  const [tripPlan, setTripPlan] = useState(null);
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     from: "",
     to: "",
@@ -52,7 +56,8 @@ function Form() {
     axios
       .get(url)
       .then((response) => {
-        console.log(response.data); // Handle successful response as needed
+        console.log(response.data);
+        setTripPlan(response.data);
       })
       .catch((error) => {
         console.error("There was an error submitting the form!", error);
@@ -252,6 +257,15 @@ function Form() {
             </Button>
           </Box>
         </form>
+      </div>
+      <div className="flex-container">
+        {tripPlan && (
+          <div className="trip-result">
+            <h3>Your Plan</h3>
+            <p className="preserve-format">{tripPlan}</p>
+          </div>
+        )}
+        <Map />
       </div>
     </>
   );

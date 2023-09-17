@@ -7,6 +7,26 @@
   justify-content: center; /* This centers items horizontally */
 }
 
+.preserve-format {
+  white-space: pre-line;
+}
+
+.flex-container {
+  display: flex;
+  justify-content: space-between; /* or "center" if you want them centered next to each other */
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+.flex-container > * {
+  /* this will apply to all direct children of .flex-container */
+  flex: 1; /* makes each child grow equally */
+  width: 50%; /* set each child's width to 50% */
+}
+
+
+
 .btn {
   border-radius: 14px;
   color: white !important;
@@ -23,5 +43,3 @@
   background: #9f92b2;
   text-decoration: none;
 }
-
-
