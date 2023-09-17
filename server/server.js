@@ -18,7 +18,7 @@ const openai = new OpenAI({
 app.use(cors());
 
 
-app.get('/api/:city1/:city2/', (req, res) => {
+app.get('/api/:city1/:city2/:count', (req, res) => {
     // res.json({ message: "Hello from the backend!" });
 
     const getResponse = async () => {
@@ -27,11 +27,11 @@ app.get('/api/:city1/:city2/', (req, res) => {
             "messages": [
               {
                 "role": "system",
-                "content": "Strictly the latitude and longitude coordinates of the city inputted located excluding the starting and ending cities themselves. Your response should be succinct and well-organized. Your output must not include anything but the format specified"
+                "content": "Please strictly list the latitude and longitude coordinates of all cities located between the specified starting and ending locations, excluding the starting and ending cities themselves. Your response should be succinct and well-organized. Your output must not include anything but the format specified"
               },
               {
                 "role": "user",
-                "content": `List ${req.params.city1} and ${req.params.city2} and provide their latitude and longitude in the format (lat1, long1),(lat2, lon2) with float values.`
+                "content": `List ${req.params.count} fairly spaced cities between ${req.params.city1} and ${req.params.city2} and provide their latitude and longitude in the format "city1 ,lat1, lon1, city2 lat2, lon2, city3, lat3, lon3".`
               }
             ]
             });
