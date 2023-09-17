@@ -27,11 +27,11 @@ app.get('/api/:city1/:city2/:count', (req, res) => {
             "messages": [
               {
                 "role": "system",
-                "content": "Please list the latitude and longitude coordinates of all cities located between the specified starting and ending locations, excluding the starting and ending cities themselves. Your response should be succinct and well-organized."
+                "content": "Please strictly list the latitude and longitude coordinates of all cities located between the specified starting and ending locations, excluding the starting and ending cities themselves. Your response should be succinct and well-organized. Your output must not include anything but the format specified"
               },
               {
                 "role": "user",
-                "content": `List ${req.params.count} evenly spaced cities between ${req.params.city1} and ${req.params.city2} and provide their latitude and longitude in the format "city1 (lat1, lon1), city2 (lat2, lon2), city3 (lat3, lon3)".`
+                "content": `List ${req.params.count} fairly spaced cities between ${req.params.city1} and ${req.params.city2} and provide their latitude and longitude in the format "city1 ,lat1, lon1, city2 lat2, lon2, city3, lat3, lon3".`
               }
             ]
             });
