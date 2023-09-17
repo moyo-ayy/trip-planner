@@ -28,7 +28,7 @@ app.get('/api/:city1/:city2/:count', (req, res) => {
               },
               {
                 "role": "user",
-                "content": `List ${req.params.count} fairly spaced cities between ${req.params.city1} and ${req.params.city2} and provide their latitude and longitude in the format (lat1, long1),(lat2, lon2) with float values.`
+                "content": `List the coordinates of ${req.params.count} fairly spaced cities between ${req.params.city1} and ${req.params.city2} and provide their latitude and longitude in the format (lat1, long1),(lat2, lon2) with float values.`
               }
             ]
             });
