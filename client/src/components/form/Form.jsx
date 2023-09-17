@@ -1,11 +1,18 @@
 import React, { useState } from "react";
-import { TextField, Button, Box, Typography } from "@mui/material";
+import {
+  TextField,
+  Button,
+  Box,
+  Typography,
+  CircularProgress,
+} from "@mui/material";
 import "./form.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Map from "../Map/Map";
 
 function Form(props) {
+  const [isLoading, setIsLoading] = useState(false);
   const [tripPlan, setTripPlan] = useState(null);
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -35,6 +42,7 @@ function Form(props) {
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log(formData);
+    setIsLoading(true);
     // ... handle form submission
     // const city1 = formData.from;
     // const city2 = formData.to;
@@ -61,6 +69,9 @@ function Form(props) {
       })
       .catch((error) => {
         console.error("There was an error submitting the form!", error);
+      })
+      .finally(() => {
+        setIsLoading(false); // Set loading to false when request completes
       });
   };
 
@@ -258,15 +269,21 @@ function Form(props) {
           </Box>
         </form>
       </div>
-      <div className="flex-container">
-        {tripPlan && (
-          <div className="trip-result">
-            <h3>Your Plan</h3>
-            <p className="preserve-format">{tripPlan}</p>
-          </div>
-        )}
-        <Map />
-      </div>
+      {isLoading ? (
+        <div className="loading-container">
+          <CircularProgress className="loading-icon" size={24} />
+        </div>
+      ) : (
+        <div className="flex-container">
+          {tripPlan && (
+            <div className="trip-result">
+              <h3>Your Plan</h3>
+              <p className="preserve-format">{tripPlan}</p>
+            </div>
+          )}
+          <Map />
+        </div>
+      )}
     </>
   );
 }

@@ -43,3 +43,21 @@
   background: #9f92b2;
   text-decoration: none;
 }
+
+.loading-icon {
+  align-items: center; /* This centers items vertically */
+  justify-content: center; /* This centers items horizontally */
+}
+
+.loading-container {
+  position: fixed;   /* Fixes the position relative to the viewport */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;  /* Centers vertically */
+  justify-content: center; /* Centers horizontally */
+  z-index: 9999; /* Ensure it's on top of other elements */
+  background-color: rgba(255,255,255,0.9); /* Optional: gives a slightly white background */
+}
