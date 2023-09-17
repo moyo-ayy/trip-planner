@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { TextField, Button, Box, Typography } from "@mui/material";
 import "./form.css";
+import axios from "axios";
 
 function Form() {
   const [formData, setFormData] = useState({
@@ -31,6 +32,31 @@ function Form() {
     event.preventDefault();
     console.log(formData);
     // ... handle form submission
+    // const city1 = formData.from;
+    // const city2 = formData.to;
+    // const count = formData.days;
+    // Use formData to get the values
+    const { from, to, days, food, hobbies, places, other } = formData;
+    const foodString = food.join(",");
+    const hobbiesString = hobbies.join(",");
+    const placesString = places.join(",");
+
+    // Construct the URL with all parameters
+    const url = `http://localhost:4000/api/${from}/${to}/${days}/${encodeURIComponent(
+      foodString
+    )}/${encodeURIComponent(hobbiesString)}/${encodeURIComponent(
+      placesString
+    )}/${encodeURIComponent(other)}`;
+    console.log(url);
+    // Make GET request to Express backend
+    axios
+      .get(url)
+      .then((response) => {
+        console.log(response.data); // Handle successful response as needed
+      })
+      .catch((error) => {
+        console.error("There was an error submitting the form!", error);
+      });
   };
 
   return (
