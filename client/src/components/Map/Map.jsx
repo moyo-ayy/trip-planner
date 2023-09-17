@@ -1,60 +1,59 @@
-import React, { useEffect, useRef } from 'react';
-import GoogleMapReact from 'google-map-react';
-import { Paper, Typography, useMediaQuery } from '@mui/material';
-import Rating from '@mui/material/Rating';
-import './map.css';
+import React, { useState, useEffect, useCallback, useContext } from 'react';
+import './map.css'
+import { GoogleMap, Marker, useJsApiLoader } from '@react-google-maps/api';
+import LocationContext from "../../contexts/LocationContext";  // Ensure the correct path
+import axios from 'axios';
 
-const MapComponent = ({ center, zoom, value }) => {
-    
-    const isMobile = useMediaQuery('(max-width:600px)');
-    const mapRef = useRef(null);
-    const mapsRef = useRef(null);
-  
-    const handleApiLoaded = ({ map, maps }) => {
-        mapRef.current = map;
-        mapsRef.current = maps;
-    };
-
-    useEffect(() => {
-      if (mapRef.current && mapsRef.current) {
-          const miamiLatLng = { lat: 25.7617, lng: -80.1918 };  // Miami's coordinates
-          new mapsRef.current.Marker({
-              position: miamiLatLng,
-              map: mapRef.current,
-              title: "Miami!",
-          });
-      }
-  }, [mapRef.current, mapsRef.current]);
-  
-    return (
-      <div className="mapContainer">
-        <GoogleMapReact
-          bootstrapURLKeys={{ key: process.env.REACT_APP_GOOGLE_API_KEY }}
-          defaultCenter={center}
-          defaultZoom={zoom}
-          onGoogleApiLoaded={handleApiLoaded}
-          yesIWantToUseGoogleMapApiInternals
-        >
-          {/* You can add child components here which will act as markers */}
-        </GoogleMapReact>
-        {isMobile ? (
-          <Paper className="paper">
-            <Typography variant="h4" component="h4">
-              Map Information
-            </Typography>
-            <Rating name="read-only" value={value} readOnly />
-          </Paper>
-        ) : null}
-      </div>
-    );
+const center = {
+  lat: 26.1420358,
+  lng: -81.7948103
 };
 
-MapComponent.defaultProps = {
-    center: {
-        lat: 25.907,
-        lng: -80.138,
-    },
-    zoom: 11,
-};
+function MapComponent() {
+
+  const { locationData } = useContext(LocationContext);  // Extracting the context data
+  console.log(locationData);
+
+  // Parse the serverResponse from context to extract lat-long coordinates
+  const coordinates = locationData.serverResponse
+    .split("),(")
+    .map(coordStr => {
+      const [lat, lng] = coordStr.replace(/[()]/g, "").split(",");
+      console.log(lat, lng);
+      return { lat: parseFloat(lat.trim()), lng: parseFloat(lng.trim()) };
+    });
+
+  const { isLoaded } = useJsApiLoader({
+    id: 'google-map-script',
+    googleMapsApiKey: process.env.REACT_APP_GOOGLE_API_KEY
+  });
+
+  const [map, setMap] = React.useState(null);
+
+  const onLoad = useCallback(function callback(map) {
+    const bounds = new window.google.maps.LatLngBounds(center);
+    map.fitBounds(bounds);
+    setMap(map);
+  }, []);
+
+  const onUnmount = useCallback(function callback(map) {
+    setMap(null);
+  }, []);
+
+  return isLoaded ? (
+    <GoogleMap
+      zoom={10}
+      mapContainerClassName={"mapContainer"}
+      center={center}
+      onLoad={onLoad}
+      onUnmount={onUnmount}
+    >
+      {/* Generate markers based on coordinates */}
+      {coordinates.map((coord, index) => (
+        <Marker key={index} position={coord} />
+      ))}
+    </GoogleMap>
+  ) : <></>
+}
 
 export default MapComponent;

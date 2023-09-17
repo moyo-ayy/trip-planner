@@ -1,9 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";  // <-- Added useContext here
 import { TextField, Button, Box, Typography } from "@mui/material";
-import "./form.css";
+import LocationContext from "../../contexts/LocationContext";  // <-- Adjust the path based on your folder structure
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import "./form.css";;
+
 
 function Form() {
-  const [formData, setFormData] = useState({
+  const navigate = useNavigate();
+  const { locationData, setLocationData } = useContext(LocationContext); // Use the context
+
+  // Use form data from the context, or default to initial state
+  const initialFormData = locationData.formData || {
     from: "",
     to: "",
     days: "",
@@ -11,7 +19,9 @@ function Form() {
     hobbies: [],
     places: [],
     other: "",
-  });
+  };
+
+  const [formData, setFormData] = useState(initialFormData);
 
   const toggleSelection = (field, value) => {
     setFormData((prevState) => ({
@@ -27,11 +37,26 @@ function Form() {
     setFormData((prevState) => ({ ...prevState, [name]: value }));
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(formData);
-    // ... handle form submission
+    
+    // Update formData in the context
+    setLocationData({ ...locationData, formData: formData });
+  
+    try {
+      // Making the API call
+      const response = await axios.get(`http://localhost:4000/api/${formData.from}/${formData.to}/`);
+      console.log(response);
+      // On successful API call, update the serverResponse in the context
+      setLocationData({ ...locationData, formData: formData, serverResponse: response.data });
+  
+      // Navigate to /result after successful API call and context update
+      navigate('/result');
+    } catch (error) {
+      console.error("Error fetching data from server:", error);
+    }
   };
+
 
   return (
     <>

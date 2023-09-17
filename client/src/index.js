@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom/client'; // Corrected this import
 import './index.css';
 import App from './App';
 import { Auth0Provider } from '@auth0/auth0-react';
+import LocationProvider from './contexts/LocationProvider.js';
 
 // You might not need this import if you're using process.env directly
 import env from "react-dotenv"
@@ -26,7 +27,9 @@ root.render(
       authorizationParams={{
         redirect_uri: `${window.location.origin}/preferences`,
       }}>
-      <App />
+      <LocationProvider>
+          <App />
+      </LocationProvider>
     </Auth0Provider>
   </React.StrictMode>
 );
